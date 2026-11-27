@@ -36,9 +36,9 @@ locals {
   sa_trail_name  = "kuma-trail-sa"
   sym_key_name   = "kuma-key"
   trail_name     = "kuma-trail"
-  zone           = "{{ region-id }}-b"
+  zone           = "{{ region-id }}-f"
   network_name   = "kuma-network"
-  subnet_name    = "kuma-network-{{ region-id }}-b"
+  subnet_name    = "kuma-network-{{ region-id }}-f"
   vm_name        = "kuma-server"
   image_id       = "fd8ulbhv5dpakf3io1mf"
 }
@@ -140,7 +140,7 @@ resource "yandex_vpc_network" "kuma-network" {
   name = local.network_name
 }
 
-resource "yandex_vpc_subnet" "kuma-network-subnet-b" {
+resource "yandex_vpc_subnet" "kuma-network-subnet-f" {
   name           = local.subnet_name
   zone           = local.zone
   v4_cidr_blocks = ["10.1.0.0/24"]
@@ -168,7 +168,7 @@ resource "yandex_compute_instance" "kuma-vm" {
     disk_id = yandex_compute_disk.boot-disk.id
   }
   network_interface {
-    subnet_id          = yandex_vpc_subnet.kuma-network-subnet-b.id
+    subnet_id          = yandex_vpc_subnet.kuma-network-subnet-f.id
     nat                = true
   }
   metadata = {
